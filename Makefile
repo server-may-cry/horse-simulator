@@ -15,7 +15,7 @@ stan: vendor
 
 .PHONY: server
 server: vendor
-	bin/console doctrine:database:create --if-not-exists
+	bin/console doctrine:database:create
 	bin/console doctrine:migrations:migrate --no-interaction
 	bin/console server:run
 
