@@ -1,10 +1,15 @@
 Requirements:
-* php-cli
+* php-cli 7.1+
 * make
 * composer
-* php-sqlite
+* additional requirements in composer.json and dependencies
 
 Start project:
 ```sh
 make
+```
+
+Run tests:
+```sh
+make tests
 ```
