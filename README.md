@@ -1,5 +1,5 @@
 Requirements:
-* php-cli 7.1+
+* php-cli
 * make
 * composer
 * additional requirements in composer.json and dependencies
