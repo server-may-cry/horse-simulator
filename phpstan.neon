@@ -3,6 +3,10 @@ includes:
 	- vendor/phpstan/phpstan/conf/config.levelmax.neon
 
 parameters:
+	doctrine:
+		objectManagerLoader: tests/object-manager.php
+	excludes_analyse:
+		- src/Migrations
 	paths:
 		- src
 		- tests

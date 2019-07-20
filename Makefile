@@ -1,12 +1,17 @@
 .DEFAULT_GOAL := server
 
-.PHONY: tests
-tests: stan cs twig yaml unit
+.PHONY: boot-test
+boot-test: vendor
+	bin/console --version
 
 .PHONY: cs
 cs: vendor
 	mkdir -p .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix --diff --verbose
+
+.PHONY: doctrine
+doctrine: vendor
+	bin/console doctrine:schema:validate --skip-sync
 
 .PHONY: stan
 stan: vendor
@@ -18,6 +23,9 @@ server: vendor
 	bin/console doctrine:database:create
 	bin/console doctrine:migrations:migrate --no-interaction
 	bin/console server:run
+
+.PHONY: tests
+tests: stan cs twig yaml doctrine unit boot-test
 
 .PHONY: twig
 twig:
