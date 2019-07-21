@@ -88,10 +88,12 @@
             </thead>
             <tbody>
             {% for horse in race.getSortedHorses %}
-                <tr>
-                    <td>{{ horse.id }}</td>
-                    <td>{{ horse.time.get }}</td>
-                </tr>
+                {% if loop.index0 < 3 %}
+                    <tr>
+                        <td>{{ horse.id }}</td>
+                        <td>{{ horse.time.get }}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>

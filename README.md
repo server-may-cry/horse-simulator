@@ -40,4 +40,4 @@ make tests
 ## Things to improve
 * write tests (code rely on phpstan and type-safety for now)
 * fix flashbag configuration (errors, ok messages not showed)
-* fix bug that fetched horses not hydrated automatically from "left join"
+* fix bug that fetched horses not hydrated properly from "left join"

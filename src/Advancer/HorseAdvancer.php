@@ -21,10 +21,6 @@ class HorseAdvancer
 
     public function advance(Horse $horse): bool
     {
-        if ($this->isFinished($horse)) {
-            return true;
-        }
-
         $timeLeftInIteration     = self::ADVANCE_BY_AMOUNT_OF_SECONDS;
         $distanceWithoutSlowDown = $horse->getEndurance()->get() * self::ENDURANCE_MULTIPLIER;
         $freeDistanceLeft        = $distanceWithoutSlowDown - $horse->getProgress()->get();
@@ -64,9 +60,6 @@ class HorseAdvancer
 
     private function advanceWithTime(Horse $horse, float $speed, float $time): void
     {
-//        if ($time != 10) {
-//            throw new \RuntimeException('time '.$time);
-//        }
         $horse
             ->setProgress(Progress::create($horse->getProgress()->get() + $speed * $time))
             ->setTime(Time::create($horse->getTime()->get() + $time));
