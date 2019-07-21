@@ -18,6 +18,8 @@ strength * 8 as a percentage
 * The last 5 race results (top 3 positions and times to complete 1500m)
 * The best ever time, and the stats of the horse that generated it
 
+# Result
+
 ## Requirements
 * php-cli
 * make

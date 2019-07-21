@@ -14,7 +14,7 @@ final class TimeType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): Time
     {
-        return Time::create($value);
+        return Time::create((float) $value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): float
@@ -29,5 +29,10 @@ final class TimeType extends Type
     public function getName(): string
     {
         return 'time';
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }

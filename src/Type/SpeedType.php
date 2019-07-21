@@ -14,7 +14,7 @@ final class SpeedType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): Speed
     {
-        return Speed::create($value);
+        return Speed::create((float) $value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): float
@@ -29,5 +29,10 @@ final class SpeedType extends Type
     public function getName(): string
     {
         return 'speed';
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }

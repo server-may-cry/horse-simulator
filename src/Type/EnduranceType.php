@@ -14,7 +14,7 @@ final class EnduranceType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): Endurance
     {
-        return Endurance::create($value);
+        return Endurance::create((float) $value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): float
@@ -29,5 +29,10 @@ final class EnduranceType extends Type
     public function getName(): string
     {
         return 'endurance';
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }

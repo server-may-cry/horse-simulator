@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+{# @var errors string[] #}
+{# @var oks string[] #}
+{# @var best_horse \App\Entity\Horse #}
+{# @var active_races \App\Entity\Race[] #}
+{# @var finished_recently \App\Entity\Race[] #}
+
+{% block content %}
+    {{ dump(app.session.flashbag) }}
+{#    {% for error in errors %}#}
+{#        <ul><li>{{ error }}</li></ul>#}
+{#    {% endfor %}#}
+{#    {% for ok in oks %}#}
+{#        <ul><li>{{ ok }}</li></ul>#}
+{#    {% endfor %}#}
+    {% if best_horse %}
+        <h2>Best time ever</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Speed</th>
+                    <th scope="col">Endurance</th>
+                    <th scope="col">Strength</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ best_horse.id }}</td>
+                    <td>{{ best_horse.time.get }}</td>
+                    <td>{{ best_horse.speed.get }}</td>
+                    <td>{{ best_horse.endurance.get }}</td>
+                    <td>{{ best_horse.strength.get }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+
+    <a href="{{ url('create') }}">
+        <button type="button" class="btn btn-primary">Create new race</button>
+    </a>
+    <a href="{{ url('advance') }}">
+        <button type="button" class="btn btn-primary">Advance all races</button>
+    </a>
+
+    <h2>Active races</h2>
+    {% for race in active_races %}
+    <h4>#{{ race.id }}</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Horse ID</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Time</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for horse in race.getSortedHorses %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ horse.id }}</td>
+                    <td>{{ horse.progress.get }}</td>
+                    <td>{{ horse.time.get }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+    <h2>Finished races</h2>
+    {% for race in finished_recently %}
+        <h4>#{{ race.id }}</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Horse ID</th>
+                <th scope="col">Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for horse in race.getSortedHorses %}
+                <tr>
+                    <td>{{ horse.id }}</td>
+                    <td>{{ horse.time.get }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{%  endblock %}

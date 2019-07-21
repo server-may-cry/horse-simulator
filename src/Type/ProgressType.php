@@ -14,7 +14,7 @@ final class ProgressType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): Progress
     {
-        return Progress::create($value);
+        return Progress::create((float) $value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): float
@@ -29,5 +29,10 @@ final class ProgressType extends Type
     public function getName(): string
     {
         return 'progress';
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }

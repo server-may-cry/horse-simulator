@@ -25,6 +25,6 @@ class HorseRepository extends ServiceEntityRepository
             ->orderBy('h.time', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }

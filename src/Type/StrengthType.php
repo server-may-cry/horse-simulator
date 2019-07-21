@@ -14,7 +14,7 @@ final class StrengthType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): Strength
     {
-        return Strength::create($value);
+        return Strength::create((float) $value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): float
@@ -29,5 +29,10 @@ final class StrengthType extends Type
     public function getName(): string
     {
         return 'strength';
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }

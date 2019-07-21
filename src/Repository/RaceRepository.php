@@ -13,12 +13,25 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class RaceRepository extends ServiceEntityRepository
 {
+    private const HORSES_PER_RACE = 8;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Race::class);
     }
 
+    public function findAmountOfActive(): int
+    {
+        return (int) $this->createQueryBuilder('r')
+            ->select('count(r.id)')
+            ->andWhere('r.isFinished = false')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
+     * No sorting on SQL level. See \App\Entity\Race::getSortedHorses
+     *
      * @return Race[]
      */
     public function findAllActive(): array
@@ -32,16 +45,18 @@ class RaceRepository extends ServiceEntityRepository
     }
 
     /**
+     * No sorting on SQL level. See \App\Entity\Race::getSortedHorses
+     *
      * @return Race[]
      */
-    public function findLastFiveFinished(): array
+    public function findSeveralLastFinished(): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.isFinished = true')
             ->leftJoin('r.horses', 'h')
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(5)
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(5 * self::HORSES_PER_RACE)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 }

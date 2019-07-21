@@ -29,7 +29,7 @@ class Race
 
     /**
      * @var Collection|Horse[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Horse", mappedBy="race", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Horse", mappedBy="race", orphanRemoval=true, cascade={"persist"})
      */
     private $horses;
 
@@ -53,6 +53,32 @@ class Race
         $this->isFinished = $isFinished;
 
         return $this;
+    }
+
+    /**
+     * Sorting in DQL not working for me on relations in case of join.
+     *
+     * @return Horse[]
+     */
+    public function getSortedHorses(): array
+    {
+        $iterator = $this->horses->getIterator();
+
+        if (!$iterator instanceof \ArrayIterator) {
+            throw new \RuntimeException();
+        }
+
+        $iterator->uasort(static function (Horse $horse1, Horse $horse2) {
+            $distance = $horse2->getProgress()->get() <=> $horse1->getProgress()->get();
+
+            if (0 !== $distance) {
+                return $distance;
+            }
+
+            return $horse1->getTime()->get() <=> $horse2->getTime()->get();
+        });
+
+        return \iterator_to_array($iterator);
     }
 
     /**
