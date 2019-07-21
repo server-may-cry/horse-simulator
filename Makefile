@@ -6,7 +6,6 @@ boot-test: vendor
 
 .PHONY: cs
 cs: vendor
-	mkdir -p .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix --diff --verbose
 
 .PHONY: doctrine
@@ -33,7 +32,6 @@ twig:
 
 .PHONY: unit
 unit: vendor
-	mkdir -p .build/phpunit
 	vendor/bin/phpunit
 
 .PHONY: vendor

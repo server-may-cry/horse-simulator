@@ -19,8 +19,8 @@ final class IndexController extends AbstractController
         FlashBagInterface $flashBag
     ): Response {
         return $this->render('index.html.twig', [
-            //            'errors' => $flashBag->get('errors'),
-            //            'oks' => $flashBag->get('oks'),
+            'errors'            => $flashBag->get('errors'),
+            'oks'               => $flashBag->get('oks'),
             'best_horse'        => $horseRepository->findFastestEverFinished(),
             'active_races'      => $raceRepository->findAllActive(),
             'finished_recently' => $raceRepository->findSeveralLastFinished(),

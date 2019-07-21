@@ -30,8 +30,14 @@ strength * 8 as a percentage
 ```sh
 make
 ```
+Open URL showed in console (default is http://127.0.0.1:8000)
 
 ## Run tests
 ```sh
 make tests
 ```
+
+## Things to improve
+* write tests (code rely on phpstan and type-safety for now)
+* fix flashbag configuration (errors, ok messages not showed)
+* fix bug that fetched horses not hydrated automatically from "left join"
